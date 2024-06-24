@@ -1,0 +1,17 @@
+.container {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+}
+
+.input {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.addon {
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
