@@ -1,0 +1,29 @@
+{
+  "name": "sg-ui-kit",
+  "version": "1.0.0",
+  "description": "My personnal UI kit",
+  "main": "index.jsx",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sylvain-galoustoff/sg-react-ui-kit.git"
+  },
+  "keywords": [
+    "react",
+    "ui",
+    "kit"
+  ],
+  "author": "Sylvain Galoustoff",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sylvain-galoustoff/sg-react-ui-kit/issues"
+  },
+  "homepage": "https://github.com/sylvain-galoustoff/sg-react-ui-kit#readme",
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-icons": "^5.2.1"
+  }
+}

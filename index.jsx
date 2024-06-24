@@ -1,2 +1,1 @@
-const sayHello = "Hello NPM !";
-export default sayHello;
+export { default as DataSearch } from "./src/DataSearch/DataSearch";
