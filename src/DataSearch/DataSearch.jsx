@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { IoSearch, IoClose } from "react-icons/io5";
 import SearchResult from "./SearchResult";
 import style from "./DataSearch.module.scss";
