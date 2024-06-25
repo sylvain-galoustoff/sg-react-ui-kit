@@ -15,3 +15,17 @@
   align-items: center;
   justify-content: center;
 }
+
+.results {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  top: calc(100% + 10px);
+  max-height: 185px;
+  overflow-y: auto;
+
+  p {
+    padding: 10px;
+    cursor: pointer;
+  }
+}
