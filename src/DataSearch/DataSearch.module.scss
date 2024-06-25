@@ -1,16 +1,9 @@
 .container {
   position: relative;
   display: flex;
-  align-items: stretch;
-}
-
-.input {
-  border-top-right-radius: 0 !important;
-  border-bottom-right-radius: 0 !important;
 }
 
 .addon {
-  padding: 0 20px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -18,21 +11,23 @@
 
 .results {
   position: absolute;
-  z-index: 1;
+  top: calc(100% + 8px);
+  left: 0;
   width: 100%;
-  top: calc(100% + 10px);
-  max-height: 185px;
-  overflow-y: auto;
-
-  p {
-    padding: 10px;
-    cursor: pointer;
-  }
+  max-height: 180px;
 }
 
 .closeResults {
+  font-size: .8rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: .8rem;
+}
+
+.resultItem {
+  cursor: pointer;
+
+  &:hover {
+    background-color: #c2c2c2;
+  }
 }

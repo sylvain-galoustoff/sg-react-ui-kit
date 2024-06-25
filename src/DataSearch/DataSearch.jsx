@@ -3,7 +3,16 @@ import { IoSearch, IoClose } from "react-icons/io5";
 import SearchResult from "./SearchResult";
 import style from "./DataSearch.module.scss";
 
-const DataSearch = ({ data, containerClass, inputClass, addonClass, resultClass, placeholder, callback }) => {
+const DataSearch = ({
+  data,
+  containerClass,
+  inputClass,
+  addonClass,
+  resultClass,
+  placeholder,
+  callback,
+  showIcon = true,
+}) => {
   const [inputValue, setInputValue] = useState("");
   const [isFocused, setIsFocused] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
@@ -15,13 +24,15 @@ const DataSearch = ({ data, containerClass, inputClass, addonClass, resultClass,
         closeResults();
       }
     };
-
     window.addEventListener("keydown", handleKeypress);
-
     return () => {
       window.removeEventListener("keydown", handleKeypress);
     };
   }, [isFocused]);
+
+  useEffect(() => {
+    setFilteredData(data);
+  }, []);
 
   const handleChange = (e) => {
     setInputValue(e.target.value);
@@ -57,12 +68,14 @@ const DataSearch = ({ data, containerClass, inputClass, addonClass, resultClass,
         onChange={handleChange}
         onFocus={handleFocus}
       />
-      <div className={`${style.addon} ${addonClass}`}>
-        <IoSearch />
-      </div>
+      {showIcon && (
+        <div className={`${style.addon} ${addonClass}`}>
+          <IoSearch />
+        </div>
+      )}
       {isFocused && (
         <div className={`${style.results} ${resultClass}`}>
-          <p className={style.closeResults} onClick={closeResults}>
+          <p className={`${style.closeResults} ${style.resultItem}`} onClick={closeResults}>
             [ESC] key or click to close <IoClose />
           </p>
           {filteredData.length > 0 ? renderFilteredData : <SearchResult resultName="Aucun résultat" />}
