@@ -1,6 +1,5 @@
 .container {
   width: 100%;
-  border: 1px solid red;
 }
 
 .toolbar {
@@ -8,6 +7,34 @@
   padding: 20px;
   display: flex;
   justify-content: space-between;
-  position: sticky;
-  top: 0px;
+  border: 1px solid #000;
+}
+
+.table {
+  border: 1px solid red;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.pagination {
+  border: 1px solid red;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tableRow {
+  display: grid;
+}
+
+.th {
+  &::first-letter {
+    text-transform: uppercase;
+  }
+}
+
+.th,
+.td {
+  border: 1px solid red;
 }

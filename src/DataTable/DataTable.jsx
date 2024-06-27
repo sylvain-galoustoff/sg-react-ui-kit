@@ -1,9 +1,33 @@
+import { useEffect, useState } from "react";
 import style from "./DataTable.module.scss";
+import ColumnName from "./ColumnName";
+import TableRow from "./TableRow";
 
-function DataTable({ containerClass }) {
+function DataTable({ data, ignore, containerClass }) {
+  const [columns, setColumns] = useState();
+  const [columnCount, setColumnCount] = useState();
+
+  useEffect(() => {
+    const columnsNames = new Set(Object.keys(data[0]));
+    if (ignore) {
+      ignore.forEach((name) => {
+        columnsNames.delete(name);
+      });
+    }
+    setColumns([...columnsNames]);
+    setColumnCount(columnsNames.size);
+  }, [data]);
+
+  const gridTemplateColumns = {
+    gridTemplateColumns: `repeat(${columnCount}, 1fr)`,
+  };
+
+  const renderColumnName = columns && Array.from(columns).map((column) => <ColumnName key={column} label={column} />);
+  const renderRows = data.map((row) => <TableRow key={row.id} data={row} gridTemplateColumns={gridTemplateColumns} />);
+
   return (
     <div className={`${style.container} ${containerClass}`}>
-      <div className={`toolbar ${style.toolbar}`}>
+      <div className={`${style.toolbar} toolbar`}>
         <div className="tool">
           <label htmlFor="pagination-select">show</label>
           <select id="pagination-select">
@@ -21,19 +45,20 @@ function DataTable({ containerClass }) {
         </div>
       </div>
 
-      <table className="table">
-        <thead className="table-header">
-          <tr className="table-row" id="pagination">
-            <td>Showing X of XXX entries</td>
-            <td>
-              <span className="page-button">Previous</span>
-
-              <span className="page-button">Next</span>
+      <table className={`${style.table} table`}>
+        <thead className={`${style.tableHeader} table-header`}>
+          <tr className={`${style.pagination} table-pagination`}>
+            <td className={style.td}>Showing X of XXX entries</td>
+            <td className={style.td}>
+              <span className={`${style.pageButton} page-button`}>Previous</span>
+              <span className={`${style.pageButton} page-button`}>Next</span>
             </td>
           </tr>
-          <tr className="table-row" id="sorters"></tr>
+          <tr className={`${style.tableRow} ${style.columnsName} table-row`} style={gridTemplateColumns}>
+            {renderColumnName}
+          </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>{renderRows}</tbody>
       </table>
     </div>
   );
