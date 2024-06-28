@@ -23,12 +23,14 @@ function DataTable({ data, ignore, containerClass }) {
   };
 
   const renderColumnName = columns && Array.from(columns).map((column) => <ColumnName key={column} label={column} />);
-  const renderRows = data.map((row) => <TableRow key={row.id} data={row} gridTemplateColumns={gridTemplateColumns} />);
+  const renderRows = Object.keys(data).map((key) => (
+    <TableRow key={key} data={data[key]} ignore={ignore} gridTemplateColumns={gridTemplateColumns} />
+  ));
 
   return (
     <div className={`${style.container} ${containerClass}`}>
       <div className={`${style.toolbar} toolbar`}>
-        <div className="tool">
+        <div className={`${style.tool} tool`}>
           <label htmlFor="pagination-select">show</label>
           <select id="pagination-select">
             <option value="10">10</option>
@@ -39,7 +41,7 @@ function DataTable({ data, ignore, containerClass }) {
           <span>entries</span>
         </div>
 
-        <div className="tool">
+        <div className={`${style.tool} tool`}>
           <label htmlFor="search">Search</label>
           <input type="text" id="search" />
         </div>
@@ -58,7 +60,7 @@ function DataTable({ data, ignore, containerClass }) {
             {renderColumnName}
           </tr>
         </thead>
-        <tbody>{renderRows}</tbody>
+        <tbody className={`${style.tableBody} table-body`}>{renderRows}</tbody>
       </table>
     </div>
   );

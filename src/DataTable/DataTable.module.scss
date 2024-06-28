@@ -4,20 +4,24 @@
 
 .toolbar {
   width: 100%;
-  padding: 20px;
+  padding: 20px 0;
   display: flex;
   justify-content: space-between;
-  border: 1px solid #000;
+}
+
+.tool {
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .table {
-  border: 1px solid red;
   width: 100%;
   border-collapse: collapse;
 }
 
 .pagination {
-  border: 1px solid red;
+  padding: 10px 0 20px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -34,7 +38,13 @@
   }
 }
 
-.th,
-.td {
-  border: 1px solid red;
+.th {
+  text-align: left;
+  padding: 10px 0;
+}
+
+.tableBody {
+  .td {
+    padding: 10px 0;
+  }
 }

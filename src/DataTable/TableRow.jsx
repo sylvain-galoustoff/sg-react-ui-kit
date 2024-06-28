@@ -1,17 +1,30 @@
+import { useEffect, useState } from "react";
 import style from "./DataTable.module.scss";
 
-function TableRow({ gridTemplateColumns, data }) {
-  const renderCells = () => {
-    let values = { ...data };
-    delete values.id;
-    values = Object.values(values);
-    console.log(values);
-    return values.map((cellValue) => <td className={style.td}>{cellValue}</td>);
-  };
+function TableRow({ gridTemplateColumns, data, ignore }) {
+  const [displayData, setDisplayData] = useState();
+
+  useEffect(() => {
+    const dataCopy = { ...data };
+    if (ignore) {
+      ignore.forEach((key) => {
+        delete data[key];
+      });
+    }
+    setDisplayData(dataCopy);
+  }, [data, ignore]);
+
+  const renderCells =
+    displayData &&
+    Object.keys(displayData).map((key) => (
+      <td key={key} className={style.td}>
+        {displayData[key]}
+      </td>
+    ));
 
   return (
     <tr className={`${style.tableRow} table-row`} style={gridTemplateColumns}>
-      {renderCells()}
+      {renderCells}
     </tr>
   );
 }
