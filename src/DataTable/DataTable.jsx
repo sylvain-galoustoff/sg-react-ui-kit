@@ -7,8 +7,11 @@ function DataTable({ data, ignore, containerClass }) {
   const [columns, setColumns] = useState();
   const [columnCount, setColumnCount] = useState();
 
+  const [searchTerms, setSearchTerms] = useState("");
+
+  const [filteredEmployees, setFilteredEmployees] = useState([]);
+
   useEffect(() => {
-    console.log(data);
     const columnsNames = new Set(Object.keys(data[0]));
     if (ignore) {
       ignore.forEach((name) => {
@@ -17,16 +20,43 @@ function DataTable({ data, ignore, containerClass }) {
     }
     setColumns([...columnsNames]);
     setColumnCount(columnsNames.size);
+    setFilteredEmployees(data);
   }, [data]);
 
   const gridTemplateColumns = {
     gridTemplateColumns: `repeat(${columnCount}, 1fr)`,
   };
 
+  const handleSearch = (e) => {
+    const inputValue = e.target.value.toLowerCase();
+    setSearchTerms(inputValue);
+
+    function findTerms(term) {
+      return data.filter((item) => {
+        return Object.values(item).some((value) => {
+          return value.toString().toLowerCase().includes(term.toLowerCase());
+        });
+      });
+    }
+
+    if (inputValue.length > 0) {
+      const searchResult = findTerms(inputValue);
+      if (searchResult.length > 0) {
+        setFilteredEmployees(searchResult);
+      } else {
+        setFilteredEmployees(data);
+      }
+    } else {
+      setFilteredEmployees(data);
+    }
+  };
+
   const renderColumnName = columns && Array.from(columns).map((column) => <ColumnName key={column} label={column} />);
-  const renderRows = Object.keys(data).map((key) => (
-    <TableRow key={key} data={data[key]} ignore={ignore} gridTemplateColumns={gridTemplateColumns} />
-  ));
+  const renderRows =
+    filteredEmployees &&
+    Object.keys(filteredEmployees).map((key) => (
+      <TableRow key={key} data={filteredEmployees[key]} ignore={ignore} gridTemplateColumns={gridTemplateColumns} />
+    ));
 
   return (
     <div className={`${style.container} ${containerClass}`}>
@@ -44,7 +74,7 @@ function DataTable({ data, ignore, containerClass }) {
 
         <div className={`${style.tool} tool`}>
           <label htmlFor="search">Search</label>
-          <input type="text" id="search" />
+          <input type="text" id="search" value={searchTerms} onChange={handleSearch} />
         </div>
       </div>
 
@@ -61,7 +91,7 @@ function DataTable({ data, ignore, containerClass }) {
             {renderColumnName}
           </tr>
         </thead>
-        <tbody className={`${style.tableBody} table-body`}>{renderRows}</tbody>
+        <tbody className={`${style.tableBody} table-body`}>{filteredEmployees.length > 0 && renderRows}</tbody>
       </table>
     </div>
   );
