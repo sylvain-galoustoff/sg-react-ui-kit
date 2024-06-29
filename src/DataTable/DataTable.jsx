@@ -8,6 +8,7 @@ function DataTable({ data, ignore, containerClass }) {
   const [columnCount, setColumnCount] = useState();
 
   useEffect(() => {
+    console.log(data);
     const columnsNames = new Set(Object.keys(data[0]));
     if (ignore) {
       ignore.forEach((name) => {

@@ -8,7 +8,7 @@ function TableRow({ gridTemplateColumns, data, ignore }) {
     const dataCopy = { ...data };
     if (ignore) {
       ignore.forEach((key) => {
-        delete data[key];
+        delete dataCopy[key];
       });
     }
     setDisplayData(dataCopy);
