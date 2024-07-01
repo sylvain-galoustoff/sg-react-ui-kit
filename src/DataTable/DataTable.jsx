@@ -51,7 +51,22 @@ function DataTable({ data, ignore, containerClass }) {
     }
   };
 
-  const renderColumnName = columns && Array.from(columns).map((column) => <ColumnName key={column} label={column} />);
+  const handleSort = (criterias) => {
+    const { label, direction } = criterias;
+    const formatedLabel = label.split(" ").join("").toLowerCase();
+    const sortResult = [...filteredEmployees];
+
+    if (direction === "asc") {
+      sortResult.sort((a, b) => a[formatedLabel].localeCompare(b[formatedLabel]));
+    } else if (direction === "desc") {
+      sortResult.sort((a, b) => b[formatedLabel].localeCompare(a[formatedLabel]));
+    }
+    setFilteredEmployees(sortResult);
+  };
+
+  const renderColumnName =
+    columns &&
+    Array.from(columns).map((column) => <ColumnName key={column} changeSortBy={handleSort} label={column} />);
   const renderRows =
     filteredEmployees &&
     Object.keys(filteredEmployees).map((key) => (
