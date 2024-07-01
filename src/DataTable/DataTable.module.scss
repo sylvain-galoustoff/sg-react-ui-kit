@@ -33,14 +33,23 @@
 }
 
 .th {
+  text-align: left;
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.sortButtons {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.columnLabel {
   &::first-letter {
     text-transform: uppercase;
   }
-}
-
-.th {
-  text-align: left;
-  padding: 10px 0;
 }
 
 .tableBody {
